@@ -43,7 +43,7 @@ function RegisterPage() {
 
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm mx-2 rounded  overflow-hidden p-4 mx-auto">
+      <div className="bg-white w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-7 mx-auto shadow-lg">
         <h3 className="text-center text-3xl font-bold">註冊新用戶</h3>
         <form className="grid gap-3 mt-5" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1">
