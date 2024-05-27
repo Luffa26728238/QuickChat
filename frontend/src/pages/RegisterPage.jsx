@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { IoClose } from "react-icons/io5"
+import { Link } from "react-router-dom"
 
+import uploadFile from "../helpers/uploadFile"
+
+console.log(import.meta.env.VITE_CLOUDINARY_CLOUD_NAME)
 function RegisterPage() {
   const [data, setData] = useState({
     name: "",
@@ -15,9 +19,13 @@ function RegisterPage() {
     setData({ ...data, [e.target.name]: e.target.value })
   }
 
-  const handleUploadPhoto = (e) => {
-    if (e.target.files.length === 0) return
-    setPhoto(e.target.files[0])
+  const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0]
+
+    if (!file) return
+    setPhoto(file)
+    const uploadPhoto = await uploadFile(file)
+    console.log(uploadPhoto)
   }
 
   const handleClearPhoto = (e) => {
@@ -31,11 +39,11 @@ function RegisterPage() {
     console.log(data)
   }
 
-  console.log(photo)
+  console.log(data)
 
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm mx-2 rounded  overflow-hidden p-4">
+      <div className="bg-white w-full max-w-sm mx-2 rounded  overflow-hidden p-4 mx-auto">
         <h3 className="text-center text-3xl font-bold">註冊新用戶</h3>
         <form className="grid gap-3 mt-5" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1">
@@ -104,10 +112,18 @@ function RegisterPage() {
               onChange={handleUploadPhoto}
             />
           </div>
-          <button className="bg-green-400 py-2 rounded hover:bg-green-300">
+          <button className="bg-green-400 py-2 rounded hover:bg-green-300 mt-2 font-bold text-white">
             註冊
           </button>
         </form>
+        <p className="text-center my-3">
+          <Link
+            to={"/email"}
+            className=" text-blue-600  hover:text-blue-900 hover:underline "
+          >
+            已經有帳號了? 立即登入
+          </Link>
+        </p>
       </div>
     </div>
   )
