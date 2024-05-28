@@ -6,11 +6,17 @@ import Home from "../pages/Home"
 import MessagePage from "../components/MessagePage"
 import App from "../App"
 import AuthLayouts from "../layout/AuthLayouts"
+import Intro from "../pages/Intro"
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "intro",
+        element: <RegisterPage />,
+      },
       {
         path: "register",
         element: (
@@ -38,7 +44,7 @@ const router = createBrowserRouter([
       {
         // "" =  如果都沒匹配到
         path: "",
-        element: <Home />,
+        element: <Intro />,
         children: [
           {
             path: ":userId",

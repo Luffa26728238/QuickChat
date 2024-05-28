@@ -112,7 +112,7 @@ function RegisterPage() {
               onChange={handleUploadPhoto}
             />
           </div>
-          <button className="bg-green-400 py-2 rounded hover:bg-green-300 mt-2 font-bold text-white">
+          <button className="bg-[#9370b2] py-2 rounded hover:bg-green-300 mt-2 font-bold text-white">
             註冊
           </button>
         </form>
