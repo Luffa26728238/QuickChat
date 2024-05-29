@@ -1,8 +1,11 @@
 import { useState } from "react"
 import { IoClose } from "react-icons/io5"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import uploadFile from "../helpers/uploadFile"
+import { CgKey } from "react-icons/cg"
+import axios from "axios"
+import toast from "react-hot-toast"
 
 console.log(import.meta.env.VITE_CLOUDINARY_CLOUD_NAME)
 function RegisterPage() {
@@ -15,6 +18,8 @@ function RegisterPage() {
 
   const [photo, setPhoto] = useState("")
 
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
@@ -23,9 +28,16 @@ function RegisterPage() {
     const file = e.target.files[0]
 
     if (!file) return
-    setPhoto(file)
     const uploadPhoto = await uploadFile(file)
-    console.log(uploadPhoto)
+
+    setPhoto(file)
+
+    setData((prev) => {
+      return {
+        ...prev,
+        profileImg: uploadPhoto?.url,
+      }
+    })
   }
 
   const handleClearPhoto = (e) => {
@@ -34,12 +46,33 @@ function RegisterPage() {
     setPhoto(null)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(data)
-  }
 
-  console.log(data)
+    const URL = `${import.meta.env.VITE_APP_BACKEND_API}/register`
+    try {
+      const res = await axios.post(URL, data)
+
+      console.log(res)
+      toast.success(res.data.message)
+
+      if (res.data.success) {
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          profileImg: "",
+        })
+
+        navigate("/email")
+      }
+
+      console.log(res)
+    } catch (err) {
+      toast.error(err.response.data.message)
+      console.error(err)
+    }
+  }
 
   return (
     <div className="mt-5">
