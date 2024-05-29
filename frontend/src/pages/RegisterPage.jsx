@@ -3,11 +3,9 @@ import { IoClose } from "react-icons/io5"
 import { Link, useNavigate } from "react-router-dom"
 
 import uploadFile from "../helpers/uploadFile"
-import { CgKey } from "react-icons/cg"
 import axios from "axios"
 import toast from "react-hot-toast"
 
-console.log(import.meta.env.VITE_CLOUDINARY_CLOUD_NAME)
 function RegisterPage() {
   const [data, setData] = useState({
     name: "",
@@ -30,7 +28,7 @@ function RegisterPage() {
     if (!file) return
     const uploadPhoto = await uploadFile(file)
 
-    setPhoto(file)
+    setPhoto(uploadPhoto.url)
 
     setData((prev) => {
       return {
@@ -63,8 +61,8 @@ function RegisterPage() {
           password: "",
           profileImg: "",
         })
-
-        navigate("/email")
+        console.log("註冊成功")
+        navigate("/login")
       }
 
       console.log(res)
@@ -75,83 +73,93 @@ function RegisterPage() {
   }
 
   return (
-    <div className="mt-5">
-      <div className="bg-white w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-7 mx-auto shadow-lg">
+    <div className="mt-5 text-white ">
+      <div className="bg-[#00000021]  w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-10 mx-auto shadow-lg shadow-lg shadow-blue-500/50">
         <h3 className="text-center text-3xl font-bold">註冊新用戶</h3>
         <form className="grid gap-3 mt-5" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="name">使用者名稱 : </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="使用者名稱"
-              className="bg-slate-100 px-2 py-1 rounded transition-all duration-500 focus:outline"
-              value={data.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="email">電子信箱 : </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="電子信箱"
-              className="bg-slate-100 px-2 py-1 rounded transition-all duration-500 focus:outline"
-              value={data.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="password">密碼 : </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="密碼"
-              className="bg-slate-100 px-2 py-1 rounded transition-all duration-500 focus:outline"
-              value={data.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="profileImg">
-              {" "}
-              照片:
-              <div className=" flex justify-center items-center h-14 bg-slate-100  rounded border hover:border-blue-500 cursor-pointer">
-                <p className="text-sm max-w-[300] text-ellipsis line-clamp-1">
-                  {photo?.name ?? "上傳大頭照"}
-                </p>
-                {photo?.name && (
-                  <button
-                    className="text-lg ml-2 hover:text-red-500"
-                    onClick={handleClearPhoto}
-                  >
-                    <IoClose size={20} />
-                  </button>
-                )}
+          <div className="flex flex-col gap-5">
+            {" "}
+            <div className="flex flex-col gap-1">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="使用者名稱"
+                className=" px-2 py-2 rounded transition-all duration-500 focus:outline"
+                value={data.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="電子信箱"
+                className=" px-2 py-1 rounded transition-all duration-500 focus:outline"
+                value={data.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="密碼"
+                className=" px  -2 py-1 rounded transition-all duration-500 focus:outline"
+                value={data.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="profileImg">
+                {" "}
+                <div className=" flex justify-center items-center h-14   rounded border hover:border-blue-500 cursor-pointer">
+                  <p className="text-sm max-w-[300] text-ellipsis line-clamp-1">
+                    {photo?.name ?? "上傳大頭照"}
+                  </p>
+                  {photo?.name && (
+                    <button
+                      className="text-lg ml-2 hover:text-red-500"
+                      onClick={handleClearPhoto}
+                    >
+                      <IoClose size={20} />
+                    </button>
+                  )}
+                </div>
+              </label>
+              <div className="flex flex-row">
+                <input
+                  type="file"
+                  id="profileImg"
+                  name="profileImg"
+                  placeholder="上傳大頭照"
+                  className="bg-slate-100 px-2 py-1 rounded transition-all duration-500 focus:outline hidden"
+                  onChange={handleUploadPhoto}
+                />
               </div>
-            </label>
-            <input
-              type="file"
-              id="profileImg"
-              name="profileImg"
-              placeholder="上傳大頭照"
-              className="bg-slate-100 px-2 py-1 rounded transition-all duration-500 focus:outline hidden"
-              onChange={handleUploadPhoto}
-            />
+              {photo && (
+                <div className="flex justify-center">
+                  <img
+                    src={photo}
+                    className="block overflow-hidden rounded-full w-20 h-20 object-fill"
+                    alt="Profile"
+                  />
+                </div>
+              )}
+            </div>
+            <button className="bg-gradient-to-r from-violet-900 to-purple-400 py-2 rounded hover:bg-green-300 mt-2 font-bold text-white shadow-2xl -translate-x-  border-black shadow-[#dede63d8] duration-500 mb-5 hover:bg-[]">
+              註冊
+            </button>
           </div>
-          <button className="bg-[#9370b2] py-2 rounded hover:bg-green-300 mt-2 font-bold text-white">
-            註冊
-          </button>
         </form>
         <p className="text-center my-3">
           <Link
-            to={"/email"}
+            to={"/login"}
             className=" text-blue-600  hover:text-blue-900 hover:underline "
           >
             已經有帳號了? 立即登入

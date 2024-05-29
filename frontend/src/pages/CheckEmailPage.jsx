@@ -1,8 +1,5 @@
 import { useState } from "react"
-import { IoClose } from "react-icons/io5"
 import { Link, useNavigate } from "react-router-dom"
-import uploadFile from "../helpers/uploadFile"
-import { CgKey } from "react-icons/cg"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { LuUser2 } from "react-icons/lu"
@@ -42,7 +39,7 @@ function CheckEmailPage() {
   }
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-7 mx-auto shadow-lg">
+      <div className="bg-[#00000057] backdrop-blur-sm  text-white w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-7 mx-auto shadow-lg shadow-blue-500/50">
         <div className="w-fit mx-auto mb-3">
           <LuUser2 size={70} />
         </div>

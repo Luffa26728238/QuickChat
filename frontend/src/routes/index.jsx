@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom"
 import RegisterPage from "../pages/RegisterPage"
 import CheckEmailPage from "../pages/CheckEmailPage"
 import CheckPasswordPage from "../pages/CheckPasswordPage"
-import Home from "../pages/Home"
 import MessagePage from "../components/MessagePage"
 import App from "../App"
 import AuthLayouts from "../layout/AuthLayouts"
@@ -14,10 +13,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "intro",
-        element: <RegisterPage />,
-      },
-      {
         path: "register",
         element: (
           <AuthLayouts>
@@ -26,7 +21,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "email",
+        path: "login",
         element: (
           <AuthLayouts>
             <CheckEmailPage />

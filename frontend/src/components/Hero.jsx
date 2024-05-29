@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { ReactTyped } from "react-typed"
 
 function Hero() {
@@ -24,9 +25,11 @@ function Hero() {
             loop
           />
         </div>
-        <button className=" bg-[#9370b2] rounded px-10 py-4 mt-6 font-bold hover:bg-[#b17bde] shadow-2xl  shadow-[#d0b88aa5] ease-in-out duration-200">
-          立即登入
-        </button>
+        <Link to="./login">
+          <button className=" bg-[#9370b2] rounded px-10 py-4 mt-6 font-bold hover:bg-[#b17bde] shadow-2xl  shadow-[#d0b88aa5] ease-in-out duration-200">
+            立即登入
+          </button>
+        </Link>
       </div>
     </div>
   )

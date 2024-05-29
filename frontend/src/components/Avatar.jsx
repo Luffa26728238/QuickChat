@@ -1,20 +1,18 @@
 import { LuUser2 } from "react-icons/lu"
 
-function Avatar({ userId, name, imageUrl, width, height }) {
+function Avatar({ userId, name, profileImg, width, height }) {
   const bgColor = ["bg-slate-200", "bg-teal-200"]
 
   return (
-    <div
-      className="text-slate-800  text-xl  font-bold overflow-hidden rounded-full shadow-md border"
-      style={{ width: `${width}px`, height: `${height}px` }}
-    >
-      {imageUrl ? (
+    <div className="text-slate-800  text-xl  font-bold overflow-hidden rounded-full shadow-md border">
+      {profileImg ? (
         <img
-          src={imageUrl}
+          src={profileImg}
           width={width}
           height={height}
           alt={name}
-          className="overflow-hidden required-full"
+          className="overflow-hidden required-full object-cover"
+          style={{ width: `${width}px`, height: `${height}px` }}
         />
       ) : name ? (
         <div

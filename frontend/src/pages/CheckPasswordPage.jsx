@@ -1,11 +1,7 @@
 import { useState } from "react"
-import { IoClose } from "react-icons/io5"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import uploadFile from "../helpers/uploadFile"
-import { CgKey } from "react-icons/cg"
 import axios from "axios"
 import toast from "react-hot-toast"
-import { LuUser2 } from "react-icons/lu"
 import Avatar from "../components/Avatar"
 
 function CheckPasswordPage() {
@@ -16,7 +12,8 @@ function CheckPasswordPage() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  console.log(location)
+  const { email, name, profileImg } = location.state
+  console.log(email)
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
@@ -42,20 +39,25 @@ function CheckPasswordPage() {
     }
   }
   return (
-    <div className="mt-5">
-      <div className="bg-white w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-7 mx-auto shadow-lg">
+    <div className="mt-5 ">
+      <div className="bg-[#00000021] w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-2 rounded p-7 mx-auto shadow-lg">
         <div className="w-fit mx-auto mb-3">
           {/* <LuUser2 size={70} /> */}
-          <Avatar width={70} height={70} name={"eirc"} />
+          <Avatar
+            width={70}
+            height={70}
+            name={"eirc"}
+            profileImg={profileImg}
+          />
         </div>
         <form className="grid gap-3 mt-10" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
-            <label htmlFor="email">電子信箱 : </label>
+            <label htmlFor="email">密碼: </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="電子信箱"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="password"
               className="bg-slate-100 px-2 py-1 rounded transition-all duration-500 focus:outline mb-3"
               value={data.email}
               onChange={handleChange}
