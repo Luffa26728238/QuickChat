@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken"
 const checkPassword = async (req, res) => {
   try {
     const { password, userId } = req.body
-
     const user = await Users.findById(userId)
 
     const verifiedPwd = await bcryptjs.compare(password, user.password)
@@ -31,8 +30,9 @@ const checkPassword = async (req, res) => {
 
     return res.cookie("token", token, cookieOption).status(200).json({
       message: "用戶成功登入",
-      token,
+      token: token,
       success: true,
+      data: user,
     })
   } catch (err) {
     res.status(500).json({

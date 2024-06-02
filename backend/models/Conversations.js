@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 
 const { Schema, model } = mongoose
 const { ObjectId } = Schema
+
 const messageSchema = new Schema(
   {
     text: {
@@ -20,6 +21,11 @@ const messageSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    sender: {
+      type: ObjectId,
+      required: true,
+      ref: "Users",
+    },
   },
   { timestamps: true }
 )
@@ -29,17 +35,19 @@ const conversationSchema = new Schema(
     sender: {
       type: ObjectId,
       required: true,
-      ref: "User",
+      ref: "Users",
     },
     receiver: {
       type: ObjectId,
       required: true,
-      ref: "User",
+      ref: "Users",
     },
-    messages: {
-      type: ObjectId,
-      ref: "Message",
-    },
+    messages: [
+      {
+        type: ObjectId,
+        ref: "Messages",
+      },
+    ],
   },
   { timestamps: true }
 )
@@ -48,4 +56,4 @@ const Messages = model("Messages", messageSchema)
 
 const Conversations = model("Conversations", conversationSchema)
 
-export default { Messages, Conversations }
+export { Messages, Conversations }

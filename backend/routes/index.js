@@ -5,6 +5,7 @@ import checkPassword from "../controller/checkPassword.js"
 import userDetail from "../controller/userDetail.js"
 import logout from "../controller/logout.js"
 import updateUser from "../controller/updateUer.js"
+import searchUser from "../controller/searchUser.js"
 
 const router = express.Router()
 
@@ -26,3 +27,6 @@ router.post("/update-user", updateUser)
 
 //登出
 router.get("/logout", logout)
+
+//搜尋其他用戶
+router.post("/search-user", searchUser)

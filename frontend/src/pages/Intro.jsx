@@ -5,12 +5,12 @@ import Contact from "../components/Contact"
 
 function Intro() {
   return (
-    <>
+    <div className="bg-black">
       <Navbar />
       <Hero />
       <Features />
       <Contact />
-    </>
+    </div>
   )
 }
 

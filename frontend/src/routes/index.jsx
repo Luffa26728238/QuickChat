@@ -6,6 +6,8 @@ import MessagePage from "../components/MessagePage"
 import App from "../App"
 import AuthLayouts from "../layout/AuthLayouts"
 import Intro from "../pages/Intro"
+import ForgotPassword from "../pages/ForgotPassword"
+import Home from "../pages/Home"
 
 const router = createBrowserRouter([
   {
@@ -22,30 +24,34 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: (
-          <AuthLayouts>
-            <CheckEmailPage />
-          </AuthLayouts>
-        ),
+        element: <CheckEmailPage />,
       },
       {
         path: "password",
+        element: <CheckPasswordPage />,
+      },
+      {
+        path: "forgotPassword",
         element: (
           <AuthLayouts>
-            <CheckPasswordPage />
+            <ForgotPassword />
           </AuthLayouts>
         ),
       },
       {
-        // "" =  如果都沒匹配到
-        path: "",
-        element: <Intro />,
+        path: "home",
+        element: <Home />,
         children: [
           {
             path: ":userId",
             element: <MessagePage />,
           },
         ],
+      },
+      {
+        // "" =  如果都沒匹配到
+        path: "",
+        element: <Intro />,
       },
     ],
   },

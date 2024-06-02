@@ -4,10 +4,19 @@ import dotenv from "dotenv"
 import connectDB from "./database/connectDB.js"
 import router from "./routes/index.js"
 import cookieParser from "cookie-parser"
+import { app, server } from "./socket/index.js"
 
-const app = express()
+// const app = express()
 
 dotenv.config()
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173")
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  )
+  next()
+})
 
 app.use(express.json())
 
@@ -29,7 +38,7 @@ app.get("/", (req, res, next) => {
 
 app.use("/api", router)
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectDB()
   console.log(`Server running on port ${PORT}`)
 })

@@ -1,30 +1,39 @@
 import { LuUser2 } from "react-icons/lu"
-
+import { PiUserCircle } from "react-icons/pi"
+import { useSelector } from "react-redux"
 function Avatar({ userId, name, profileImg, width, height }) {
-  const bgColor = ["bg-slate-200", "bg-teal-200"]
+  const onlineUser = useSelector((state) => state?.user?.onlineUser)
+
+  const isOnline = onlineUser.includes(userId)
 
   return (
-    <div className="text-slate-800  text-xl  font-bold overflow-hidden rounded-full shadow-md border">
+    <div
+      className={`text-slate-800  rounded-full font-bold relative`}
+      style={{ width: width + "px", height: height + "px" }}
+    >
       {profileImg ? (
         <img
           src={profileImg}
-          width={width}
-          height={height}
+          style={{ width: width + "px", height: height + "px" }}
           alt={name}
-          className="overflow-hidden required-full object-cover"
-          style={{ width: `${width}px`, height: `${height}px` }}
+          className="overflow-hidden rounded-full flex justify-center items-center text-lg bg-blue-200"
         />
       ) : name ? (
         <div
-          style={{ width: `${width}px`, height: `${height}px` }}
-          className="overflow-hidden rounded-full flex justify-center items-center"
+          style={{ width: width + "px", height: height + "px" }}
+          className={`overflow-hidden rounded-full flex justify-center items-center text-lg bg-blue-200`}
         >
           {name}
         </div>
       ) : (
-        <LuUser2 size={70} />
+        <PiUserCircle size={width} />
+      )}
+
+      {isOnline && (
+        <div className="bg-green-600 p-1 absolute bottom-1 -right-1 z-10 rounded-full"></div>
       )}
     </div>
   )
 }
+
 export default Avatar
